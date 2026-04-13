@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Form Input</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --cream: #FFFBEF;
+            --yellow-soft: #F5E6A3;
+            --yellow-mid: #EDD96B;
+            --yellow-warm: #D4B84A;
+            --brown-text: #4A3B1F;
+            --brown-light: #7A6040;
+            --shadow: rgba(180, 140, 40, 0.18);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--cream);
+            background-image:
+                radial-gradient(ellipse at 75% 15%, #F9EFC0 0%, transparent 55%),
+                radial-gradient(ellipse at 25% 85%, #FDE9A0 0%, transparent 55%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .card {
+            background: rgba(255, 252, 235, 0.88);
+            backdrop-filter: blur(10px);
+            border: 1.5px solid var(--yellow-mid);
+            border-radius: 24px;
+            padding: 52px 48px;
+            width: 440px;
+            box-shadow: 0 8px 40px var(--shadow);
+            animation: fadeUp 0.6s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .deco {
+            width: 48px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--yellow-mid), var(--yellow-warm));
+            border-radius: 2px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--brown-text);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 0.85rem;
+            color: var(--brown-light);
+            margin-bottom: 36px;
+            font-weight: 300;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.78rem;
+            font-weight: 500;
+            color: var(--brown-light);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid var(--yellow-soft);
+            border-radius: 12px;
+            background: rgba(255,253,240,0.9);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--brown-text);
+            outline: none;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--yellow-warm);
+            box-shadow: 0 0 0 3px rgba(212, 184, 74, 0.18);
+        }
+
+        input::placeholder { color: #C5B07A; }
+
+        .radio-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+        }
+
+        .radio-option label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            border: 1.5px solid var(--yellow-soft);
+            border-radius: 12px;
+            background: rgba(255,253,240,0.9);
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 400;
+            color: var(--brown-light);
+            text-transform: none;
+            letter-spacing: 0;
+            transition: all 0.2s;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background: linear-gradient(135deg, var(--yellow-soft), var(--yellow-mid));
+            border-color: var(--yellow-warm);
+            color: var(--brown-text);
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(180,140,40,0.15);
+        }
+
+        .radio-option label:hover {
+            border-color: var(--yellow-warm);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 8px;
+        }
+
+        button[type="submit"] {
+            flex: 1;
+            padding: 14px;
+            background: linear-gradient(135deg, var(--yellow-mid), var(--yellow-warm));
+            border: none;
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--brown-text);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 16px rgba(180,140,40,0.22);
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(180,140,40,0.3);
+        }
+
+        .btn-back {
+            padding: 14px 20px;
+            background: transparent;
+            border: 1.5px solid var(--yellow-mid);
+            border-radius: 12px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--brown-light);
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .btn-back:hover {
+            background: rgba(237,217,107,0.15);
+        }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="deco"></div>
+    <h2>Form Input</h2>
+    <p class="subtitle">Lengkapi data diri kamu</p>
+
+    <form action="/submit" method="post" th:object="${userData}">
+        <div class="field">
+            <label>Nama Lengkap</label>
+            <input type="text" th:field="*{nama}" placeholder="Masukkan nama lengkap">
+        </div>
+
+        <div class="field">
+            <label>NIM</label>
+            <input type="text" th:field="*{nim}" placeholder="Masukkan NIM">
+        </div>
+
+        <div class="field">
+            <label>Jenis Kelamin</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="lk" th:field="*{jenisKelamin}" value="Laki-laki">
+                    <label for="lk">♂ Laki-laki</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="pr" th:field="*{jenisKelamin}" value="Perempuan">
+                    <label for="pr">♀ Perempuan</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-row">
+            <a href="/home" class="btn-back">← Kembali</a>
+            <button type="submit">Simpan Data</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
